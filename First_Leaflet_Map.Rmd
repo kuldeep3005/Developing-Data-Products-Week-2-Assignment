@@ -1,0 +1,37 @@
+---
+title: "First Leaflet Map"
+author: "Kuldeep Singh Meena"
+date: "28 August 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+## Instructions
+
+Create a web page using R Markdown that features a map created with Leaflet.
+
+Host your webpage on either GitHub Pages, RPubs, or NeoCities.
+
+Your webpage must contain the date that you created the document, and it must contain a map created with Leaflet. We would love to see you show off your creativity!
+
+
+## My First Leaflet Map
+
+This map shows all cities of world. cities data taken from https://simplemaps.com/data/world-cities.
+
+``` {r, echo=FALSE}
+library(dplyr)
+library(leaflet)
+
+df <- read.csv("worldcities.csv")
+df %>% leaflet() %>%
+  addTiles() %>%
+  addMarkers(
+    lat = df$lat, 
+    lng = df$lng, 
+    popup = paste(df$popup, "<br>", "City:", df$city_ascii),
+    clusterOptions = markerClusterOptions())
+  
+```
